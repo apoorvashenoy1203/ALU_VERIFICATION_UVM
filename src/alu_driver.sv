@@ -2,11 +2,9 @@
     virtual alu_interface vif;
     `uvm_component_utils(alu_driver)
 
-  uvm_analysis_port #(alu_sequence_item) item_collected_port;
 
     function new(string name , uvm_component parent);
         super.new(name, parent);
-        item_collected_port = new("item_collected_port", this);
     endfunction
 
     function void build_phase(uvm_phase phase);
@@ -42,7 +40,6 @@
             req.print();
             $display("[DRIVER]initial sent at time=%t later check for inp to be 11",$time);
             `uvm_info(get_type_name(),$sformatf("OPA=%d OPB=%d CIN=%d CMD=%d INP_VALID=%d MODE=%d",req.OPA,req.OPB,req.CIN,req.CMD,req.INP_VALID,req.MODE),UVM_LOW);
-            item_collected_port.write(req);
 
 
           for (int j = 0; j < 16; j++)
@@ -61,7 +58,6 @@
               req.print();
 
                 `uvm_info(get_type_name(),$sformatf("GOT INP_VALID =11 Sent to dut OPA=%d OPB=%d CIN=%d CMD=%d INP_VALID=%d MODE=%d",req.OPA,req.OPB,req.CIN,req.CMD,req.INP_VALID,req.MODE),UVM_LOW);
-             item_collected_port.write(req);
               break;
               end //5
               else
@@ -90,7 +86,6 @@
           req.print();
             $display("[DRIVER]sent at time=%t",$time);
             `uvm_info(get_type_name(),$sformatf("OPA=%d OPB=%d CIN=%d CMD=%d INP_VALID=%d MODE=%d",req.OPA,req.OPB,req.CIN,req.CMD,req.INP_VALID,req.MODE),UVM_LOW);
-             item_collected_port.write(req);
 
         end//7
       end //2
@@ -106,7 +101,6 @@
         req.print();
             $display("[DRIVER]sent at time=%t",$time);
             `uvm_info(get_type_name(),$sformatf("OPA=%d OPB=%d CIN=%d CMD=%d INP_VALID=%d MODE=%d",req.OPA,req.OPB,req.CIN,req.CMD,req.INP_VALID,req.MODE),UVM_LOW);
-             item_collected_port.write(req);
 
       end//8
 
